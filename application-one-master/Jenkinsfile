@@ -8,7 +8,7 @@ pipeline {
     }
 
     triggers {
-        githubPush() // déclenché par un webhook GitHub
+        githubPush()
     }
 
     stages {
