@@ -14,7 +14,7 @@ pipeline {
     }
 
     stages {
-        stage('Cloner le dépôt') {
+        stage('Cloneer le dépôt') {
             steps {
                 git branch: 'main', url: 'https://github.com/FarahTrigui/DevOpsPractices.git'
             }
