@@ -1,0 +1,22 @@
+1. Install Java, Maven, Intellij
+2. Create account on docker hub and Install Docker Desktop - Docker Runtime Engine
+3. Create Springboot application
+4. Import to Intellij
+5. Create REST Endpoint
+6. Create Dockerfile
+7. Create docker image
+8. Push docker image to docker hub repository
+9. Pull docker image from docker hub repository
+10. Run the pulled docker image in our local computer
+
+Docker commands
+----------------
+1. Login to Docker hub -> docker login
+2. Create docker image -> docker build -t <NAME_OF_IMAGE>:<VERSION> .
+3. List all docker images -> docker images
+4. Remove docker images-> docker tag application-one-img:latest application-one-img:v2
+5. Push image to docker hub-> docker push ranjan715/application-one-img:latest
+6. Pull and run container-> docker run -p 8090:8080 ranjan715/application-one-img:latest
+NOTE: Port 8090 is on which you want it to access in your host/local machine, 8080 is the exposed port from container
+7. List all running containers-> docker ps
+8. Kill a running docker container-> docker kill <CONTAINER_ID>

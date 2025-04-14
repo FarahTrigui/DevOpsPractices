@@ -1,0 +1,25 @@
+Docker commands
+----------------
+1. Login to Docker hub -> docker login
+2. Create docker image -> docker build -t <NAME_OF_IMAGE>:<VERSION> .
+3. List all docker images -> docker images
+4. Remove docker images-> docker tag application-one-img:latest application-one-img:v2
+5. Push image to docker hub-> docker push ranjan715/application-one-img:latest
+6. Pull and run container-> docker run -p 8090:8080 ranjan715/application-one-img:latest
+NOTE: Port 8090 is on which you want it to access in your host/local machine, 8080 is the exposed port from container
+7. List all running containers-> docker ps
+8. Kill a running docker container-> docker kill <CONTAINER_ID>
+9. Pull mongo db image from docker hub-> docker pull mongo:latest
+-d -> Runs container in detach/background
+-p -> Publish the port
+10. Command to run mongodb container-> docker run -d -p 28000:27017 --name mongodb-container-one mongo:latest
+11. docker build -t springboot-with-mongodb:v1 .
+12. Retagging local image for pushing to docker hub->  docker tag springboot-with-mongodb:v1 ranjan715/springboot-with-mongodb:v1
+13. Push the image to docker hub-> docker push ranjan715/springboot-with-mongodb:v1
+14. Run springboot docker container and link it with mongodb container
+docker run -p 8090:8081 --name springboot-with-mongodb-container-one --link mongodb-container-one:mongo -d ranjan715/springboot-with-mongodb:v1
+15. Check springboot logs inside docker container -> docker logs <NAME_OF_RUNNING_CONTAINER>
+16. Go inside a running container -> docker exec -it <NAME_OF_RUNNING_CONTAINER> bash
+17. Force remove of running containers-> docker rm -f <NAME_OF_RUNNING_CONTAINER> <NAME_OF_RUNNING_CONTAINER>
+18. Command to delete docker images from local-> docker rmi springboot-with-mongodb:v4 ranjan715/springboot-with-mongodb:v4
+19. Docker compose helps us to run multi container application very easily with a single command
