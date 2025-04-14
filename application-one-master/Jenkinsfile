@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools{
+	maven:Maven_3.8.1
+	}
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
         IMAGE_TAG = "v${BUILD_NUMBER}-${new Date().format('yyyyMMdd')}"
@@ -20,21 +22,20 @@ pipeline {
 
         stage('Build avec Maven') {
             steps {
-	      sh 'cd application-one-master/'	
-              sh 'mvn clean install -DskipTests=false'
+	      sh 'cd application-one-master && mvn clean install -DskipTests=false"
             }
         }
 
         stage('Exécuter les tests') {
             steps {
-                sh 'mvn test'
+                sh 'cd application-one-master && mvn test'
             }
         }
 
         stage('Construire l\'image Docker') {
             steps {
                 script {
-                    sh "docker build -t ${FULL_IMAGE_NAME} ."
+                    sh "cd application-one-master && docker build -t ${FULL_IMAGE_NAME} ."
                 }
             }
         }
@@ -43,7 +44,7 @@ pipeline {
             steps {
                 script {
                      withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        sh "docker push ${FULL_IMAGE_NAME}"
+                        sh "cd application-one-master && docker push ${FULL_IMAGE_NAME}"
                     }
                 }
             }
