@@ -9,6 +9,7 @@ This project shows a basic CI/CD pipeline using **Jenkins**, **Maven**, and **Do
 - Runs tests
 - Builds a Docker image
 - Pushes the image to Docker Hub
+![DockerHub](https://github.com/FarahTrigui/DevOpsPractices/blob/main/dockerhub.png)
 
 ## 🧪 Requirements
 
