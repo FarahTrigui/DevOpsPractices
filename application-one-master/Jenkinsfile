@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build avec Maven') {
             steps {
-	      sh 'cd application-one-master && mvn clean install -DskipTests=false"
+	      sh 'cd application-one-master && mvn clean install -DskipTests=false'
             }
         }
 
