@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker')
+        IMAGE_TAG = "v${BUILD_NUMBER}-${new Date().format('yyyyMMdd')}"
+        FULL_IMAGE_NAME = "fifia/java-app:${IMAGE_TAG}"
+    }
+
+    triggers {
+        githubPush() // déclenché par un webhook GitHub
+    }
+
+    stages {
+        stage('Cloner le dépôt') {
+            steps {
+                git branch: 'main', url: 'https://github.com/FarahTrigui/DevOpsPractices.git'
+            }
+        }
+
+        stage('Build avec Maven') {
+            steps {
+                sh 'mvn clean install -DskipTests=false'
+            }
+        }
+
+        stage('Exécuter les tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Construire l\'image Docker') {
+            steps {
+                script {
+                    sh "docker build -t ${FULL_IMAGE_NAME} ."
+                }
+            }
+        }
+
+        stage('Pousser vers Docker Hub') {
+            steps {
+                script {
+                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh "docker push ${FULL_IMAGE_NAME}"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Image poussée avec succès : ${FULL_IMAGE_NAME}"
+        }
+        failure {
+            echo "Le pipeline a échoué."
+        }
+    }
+}
